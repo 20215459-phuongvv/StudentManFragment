@@ -38,10 +38,15 @@ class AddFragment : Fragment() {
             val id = studentId.text.toString()
 
             if (name.isNotEmpty() && id.isNotEmpty()) {
-                studentViewModel.addStudent(StudentModel(name, id))
-                findNavController().navigateUp()
+                val success = studentViewModel.addStudent(StudentModel(name, id))
+                if (success) {
+                    Toast.makeText(context, "Thêm sinh viên thành công", Toast.LENGTH_SHORT).show()
+                    findNavController().navigateUp()
+                } else {
+                    Toast.makeText(context, "Thêm sinh viên thất bại", Toast.LENGTH_SHORT).show()
+                }
             } else {
-                Toast.makeText(context, "Please fill in all fields", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "Vui lòng nhập đầy đủ thông tin", Toast.LENGTH_SHORT).show()
             }
         }
     }

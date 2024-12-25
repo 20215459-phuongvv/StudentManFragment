@@ -83,12 +83,12 @@ class StudentListFragment : Fragment() {
         AlertDialog.Builder(requireContext())
             .setMessage("Bạn chắc chắn muốn xóa sinh viên này chứ?")
             .setPositiveButton("Có") { _, _ ->
-                studentViewModel.deleteStudent(student)
-                Toast.makeText(
-                    requireContext(),
-                    "Đã xóa sinh viên ${student.studentName} thành công!",
-                    Toast.LENGTH_SHORT
-                ).show()
+                val success = studentViewModel.deleteStudent(student)
+                if (success) {
+                    Toast.makeText(requireContext(), "Đã xóa ${student.studentName}", Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(requireContext(), "Xóa thất bại", Toast.LENGTH_SHORT).show()
+                }
             }
             .setNegativeButton("Không", null)
             .show()

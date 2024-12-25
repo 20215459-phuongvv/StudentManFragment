@@ -40,10 +40,15 @@ class EditFragment : Fragment() {
             val id = studentIdEditText.text.toString()
 
             if (name.isNotEmpty() && id.isNotEmpty()) {
-                studentViewModel.updateStudent(studentId, name, id)
-                findNavController().navigateUp()
+                val success = studentViewModel.updateStudent(studentId, StudentModel(name, id))
+                if (success) {
+                    Toast.makeText(context, "Cập nhật thành công", Toast.LENGTH_SHORT).show()
+                    findNavController().navigateUp()
+                } else {
+                    Toast.makeText(context, "Cập nhật thất bại", Toast.LENGTH_SHORT).show()
+                }
             } else {
-                Toast.makeText(context, "Please fill in all fields", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "Vui lòng nhập đầy đủ thông tin", Toast.LENGTH_SHORT).show()
             }
         }
     }
